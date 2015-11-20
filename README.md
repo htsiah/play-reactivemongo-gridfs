@@ -1,6 +1,6 @@
-Reactivemong - GridFS for Play 2.4 Example
+Reactivemongo - GridFS for Play 2.4 Example
 =======================
-This is a Play24 GridFS Example using reactiveMongo driver. It demontrates how to upload, view and delete an attachment.
+This is a Play24 GridFS Example using reactiveMongo driver. It demontrates how to upload, view and delete attachment.
 
 Setup Instruction
 =======================
