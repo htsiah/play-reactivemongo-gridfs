@@ -25,6 +25,10 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
   private val gridFS = FileModel.gridFS
     
+  
+  
+  // 1MB    
+  // def insert = Action.async(parse.maxLength(1024 * 1024, gridFSBodyParser(gridFS))) { request => {
   def insert = Action.async(gridFSBodyParser(gridFS)) { request => {
     
     // here is the future file!
@@ -33,27 +37,30 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     futureFile.onFailure {
       case err => err.printStackTrace()
     }
-    
+          
     // when the upload is complete, we add the article id to the file entry (in order to find the attachments of the article)
     val futureUpdate = for {
       file <- { println("_0"); futureFile }
-       
+            
       // here, the file is completely uploaded, so it is time to update the article
       updateResult <- {
         println("_1")
+        println(file.length)
         gridFS.files.update(
             Json.obj("_id" -> file.id),
             Json.obj("$set" -> Json.obj("metadata" -> Json.obj("user" -> "Simon Siah", "size" -> "original"))))
-        }
-      } yield updateResult
-
-      futureUpdate.map { _ =>
-        Redirect(routes.Application.index)
-      }.recover {
-        case e => InternalServerError(e.getMessage())
       }
+    } yield updateResult
+    
+    futureUpdate.map { _ =>
+      Redirect(routes.Application.index)
+    }.recover {
+      case e => InternalServerError(e.getMessage())
+    }
     
   }}
+  
+
     
   def view(p_id: String) = Action.async { request => {
     
