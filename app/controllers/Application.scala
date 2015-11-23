@@ -1,5 +1,7 @@
 package controllers
 
+import models.FileModel
+
 import javax.inject.Inject
 
 import play.api._
@@ -14,11 +16,11 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import reactivemongo.api.gridfs.ReadFile
 import reactivemongo.bson._
 
-class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Controller with MongoController with ReactiveMongoComponents {
+class Application @Inject() extends Controller {
 
   import MongoController.readFileReads
   type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
-  private val gridFS = reactiveMongoApi.gridFS
+  private val gridFS = FileModel.gridFS
 
   def index = Action.async {
     gridFS.find[JsObject, JSONReadFile](Json.obj()).collect[List]().map { files =>

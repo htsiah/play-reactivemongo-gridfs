@@ -1,6 +1,6 @@
 package controllers
 
-import models._
+import models.FileModel
 
 import javax.inject.Inject
 
@@ -23,14 +23,8 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     
   import MongoController.readFileReads
   type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
-  private val gridFS = reactiveMongoApi.gridFS
-
-  // let's build an index on our gridfs chunks collection if none
-  gridFS.ensureIndex().onComplete {
-    case index =>
-      Logger.info(s"Checked index, result is $index")
-  }
-  
+  private val gridFS = FileModel.gridFS
+    
   def insert = Action.async(gridFSBodyParser(gridFS)) { request => {
     
     // here is the future file!
