@@ -8,12 +8,6 @@ This example use the following:
 <li>Reactive Scala Driver for MongoDB 11.0</li>
 </ul>
 
-References:
-
-http://blog.intelligencecomputing.io/tags/reactivemongo
-
-https://github.com/sgodbillon/reactivemongo-demo-app
-
 Setup Instruction
 =======================
 
@@ -57,3 +51,9 @@ mongodb.uri = "mongodb://localhost:27017/play-reactivemongo-gridfs"
 # logger.reactivemongo=DEBUG
 logger.reactivemongo=INFO
 </pre></div>
+
+References:
+=======================
+http://blog.intelligencecomputing.io/tags/reactivemongo
+
+https://github.com/sgodbillon/reactivemongo-demo-app
