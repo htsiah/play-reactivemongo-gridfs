@@ -9,7 +9,9 @@ This example use the following:
 </ul>
 
 References:
+
 http://blog.intelligencecomputing.io/tags/reactivemongo
+
 https://github.com/sgodbillon/reactivemongo-demo-app
 
 Setup Instruction
