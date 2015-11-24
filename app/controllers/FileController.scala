@@ -24,9 +24,7 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   import MongoController.readFileReads
   type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
   private val gridFS = FileModel.gridFS
-    
-  
-  
+
   // 1MB    
   // def insert = Action.async(parse.maxLength(1024 * 1024, gridFSBodyParser(gridFS))) { request => {
   def insert = Action.async(gridFSBodyParser(gridFS)) { request => {
@@ -60,8 +58,6 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     
   }}
   
-
-    
   def view(p_id: String) = Action.async { request => {
     
     // find the matching attachment, if any, and streams it to the client
