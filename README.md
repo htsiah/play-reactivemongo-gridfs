@@ -1,6 +1,6 @@
 Reactivemongo - GridFS for Play 2.4 Example
 =======================
-This is a Play24 GridFS Example using reactiveMongo driver. It demontrates how to upload, view and delete attachment.
+This is a Play24 GridFS Example using reactiveMongo driver. It demonstrates how to upload, view and delete attachment.
 
 This example use the following:
 <ul>
@@ -38,7 +38,7 @@ Modify application.conf
 play.modules.enabled += "play.modules.reactivemongo.ReactiveMongoModule"
 
 # Simple configuration (by URI)
-mongodb.uri = "mongodb://localhost:27017/play-reactivemongo-gridfs"
+# mongodb.uri = "mongodb://localhost:27017/play-reactivemongo-gridfs"
 
 # URI + Authentication
 # mongodb.uri = "mongodb://jack:jack@localhost:27017/toto"
@@ -50,10 +50,27 @@ mongodb.uri = "mongodb://localhost:27017/play-reactivemongo-gridfs"
 # If you want to turn on logging for ReactiveMongo, uncomment and customize this line
 # logger.reactivemongo=DEBUG
 logger.reactivemongo=INFO
+
+# ****************************************** #
+# ***        Custom Configuration        *** #
+# ****************************************** #
+play.http.parser.maxDiskBuffer = 512k
 </pre></div>
+
+Notes:
+=======================
+<ul>
+<li>MongoDB configuration is in FileModel, not in application.conf. With this approach, developer can set different types of attachment to store in different MongoDB.</li>
+<li>This example only allow 512k attachment. You can change in application.conf at play.http.parser.maxDiskBuffer = 512k.</li>
+<li>Another method to set attachment limit is at Action -> Action.async(parse.maxLength(512 * 1024, gridFSBodyParser(gridFS)))</li>
+<li>Both file size limit will prompt error message if exceeded size limit. However attachment still upload into MongoDB.</li>
+<li>Next Steps: If attachment file size limit exceeded, should no upload into MongoDB.</li>
+</ul>
 
 References:
 =======================
 http://blog.intelligencecomputing.io/tags/reactivemongo
 
 https://github.com/sgodbillon/reactivemongo-demo-app
+
+https://groups.google.com/forum/?fromgroups#!topic/reactivemongo/egniFzCLpDg
