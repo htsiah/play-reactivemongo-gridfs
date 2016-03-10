@@ -30,6 +30,5 @@ object FileModel {
     import play.modules.reactivemongo.json.collection._
     GridFS[JSONSerializationPack.type](db)
   }
-   
-  
+
 }

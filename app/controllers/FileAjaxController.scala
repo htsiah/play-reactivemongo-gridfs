@@ -88,6 +88,5 @@ class FileAjaxController @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
       Redirect(routes.Application.fileajax)
     ).recover { case _ => InternalServerError }
   }
-    
 
 }
