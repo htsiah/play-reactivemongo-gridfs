@@ -54,15 +54,16 @@ logger.reactivemongo=INFO
 # ****************************************** #
 # ***        Custom Configuration        *** #
 # ****************************************** #
-play.http.parser.maxDiskBuffer = 512k
+play.http.parser.maxDiskBuffer = 1024k
 </pre></div>
 
 Notes:
 =======================
 <ul>
 <li>MongoDB configuration is in FileModel, not in application.conf. With this approach, developer can set different types of attachment to store in different MongoDB.</li>
-<li>This example only allow 512k attachment. You can change in application.conf at play.http.parser.maxDiskBuffer = 512k.</li>
-<li>Another method to set attachment limit is at Action -> Action.async(parse.maxLength(512 * 1024, gridFSBodyParser(gridFS)))</li>
+<li>This example has 2 attachment upload - standard and ajax.</li>
+<li>Standard maximum file size limit is 2MB and configuration is in application.conf at play.http.parser.maxDiskBuffer = 2024k. In standard file upload, user select the attachment and click on submit button to upload attachment.</li>
+<li>Ajax maximum file size limit is 1MB and configuration is at Action -> Action.async(parse.maxLength(1 * 1024 * 1024, gridFSBodyParser(gridFS))). In ajax file upload, attachment is upload using jquery ajax post.</li>
 <li>Both file size limit will prompt error message if exceeded size limit. However attachment still upload into MongoDB.</li>
 <li>Next Steps: If attachment file size limit exceeded, should no upload into MongoDB.</li>
 </ul>

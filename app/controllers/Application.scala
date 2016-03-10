@@ -21,13 +21,27 @@ class Application @Inject() extends Controller {
   import MongoController.readFileReads
   type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
 
-  def index = Action.async {
+  def index = Action {
+      Ok(views.html.index("Play Reactivemongo - GridFS"))
+  }
+  
+  def file = Action.async {
     FileModel.gridFS.find[JsObject, JSONReadFile](Json.obj()).collect[List]().map { files =>
       val filesWithId = files.map { file =>
         file.id -> file
       } 
       
-      Ok(views.html.index("Play Reactivemongo - GridFS", Some(filesWithId)))
+      Ok(views.html.file("Play Reactivemongo - GridFS", Some(filesWithId)))
+    }
+  }
+  
+  def fileajax = Action.async {
+    FileModel.gridFS.find[JsObject, JSONReadFile](Json.obj()).collect[List]().map { files =>
+      val filesWithId = files.map { file =>
+        file.id -> file
+      } 
+      
+      Ok(views.html.fileajax("Play Reactivemongo - GridFS", Some(filesWithId)))
     }
   }
   

@@ -1,0 +1,72 @@
+@(message: String, files: Option[List[(play.api.libs.json.JsString, reactivemongo.api.gridfs.ReadFile[play.modules.reactivemongo.json.JSONSerializationPack.type, play.api.libs.json.JsString])]])
+
+@main(message) {
+
+	<table>
+		<tr>
+			<td width="70%">
+				<h2>Attachments</h2>
+				@if(files.isDefined) {
+					<ul>
+						@files.get.map { file =>
+							<li><a href="@routes.FileController.view(file._1.value)">@file._2.filename</a> - <a class="delete" href="@routes.FileAjaxController.delete(file._1.value)">delete</a></li>
+						}
+    				</ul>
+    			}
+			</td>
+			<td width="30%">
+				<input type="file" name="file" id="file_select">
+			</td>
+		</tr>
+	</table>
+	
+	<a href="/">Main Menu</a>
+	
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script>
+		// Add events
+		$("#file_select").on('change', uploadFile);
+		
+		function uploadFile(event){
+			
+			// Create a new FormData object for file upload.
+			var formfile = new FormData();
+			
+			// Get upload file
+			var file = event.target.files[0];
+			
+			// Add the file to the request.
+			formfile.append("file", file, file.name);
+
+			// Upload using AJAX
+		    $.ajax({
+		        url: "/fileajax/insert",
+		        type: "POST",
+		        data: formfile,
+		        cache: false,
+		        dataType: "json",
+		        processData: false, // Don't process the files
+		        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		        success: function(data, textStatus, jqXHR){
+			        if (data.status == "exceed file size limit") {
+				        alert("Over 1 MB file size limit");
+				        location.reload();
+			        } else {
+			        	location.reload();
+			        };
+			        
+		        },
+		        error: function(jqXHR, textStatus, errorThrown){
+		            // Handle errors here
+		            if ( errorThrown =="Request Entity Too Large"){
+			            alert("Over 1 MB file size limit. Upload file is not complete.");
+			            location.reload();
+		            };
+		            console.log('ERRORS 2: ' + textStatus);
+		            // STOP LOADING SPINNER
+		        }
+		    });			
+		};
+	</script>
+
+}

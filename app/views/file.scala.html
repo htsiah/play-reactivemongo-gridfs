@@ -1,0 +1,29 @@
+@(message: String, files: Option[List[(play.api.libs.json.JsString, reactivemongo.api.gridfs.ReadFile[play.modules.reactivemongo.json.JSONSerializationPack.type, play.api.libs.json.JsString])]])
+
+@main(message) {
+
+	<table>
+		<tr>
+			<td width="70%">
+				<h2>Attachments</h2>
+				@if(files.isDefined) {
+					<ul>
+						@files.get.map { file =>
+							<li><a href="@routes.FileController.view(file._1.value)">@file._2.filename</a> - <a target="_blank" href="@routes.FileController.view(file._1.value)?inline=true">inline</a> - <a class="delete" href="@routes.FileController.delete(file._1.value)">delete</a></li>
+						}
+    				</ul>
+    			}
+			</td>
+			<td width="30%">
+				@helper.form(action = routes.FileController.insert, 'enctype -> "multipart/form-data") {
+					<input type="file" name="picture">
+					<div>
+						<input type="submit" class="btn">
+					</div>
+    			}
+			</td>
+		</tr>
+	</table>
+	
+	<a href="/">Main Menu</a>
+}

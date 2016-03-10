@@ -46,7 +46,7 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     } yield updateResult
     
     futureUpdate.map { _ =>
-      Redirect(routes.Application.index)
+      Redirect(routes.Application.file)
     }.recover {
       case e => InternalServerError(e.getMessage())
     }
@@ -68,7 +68,7 @@ class FileController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   
   def delete(p_id:String) = Action.async {
     FileModel.gridFS.remove(Json toJson p_id).map(_ => 
-      Redirect(routes.Application.index)
+      Redirect(routes.Application.file)
     ).recover { case _ => InternalServerError }
   }
     
