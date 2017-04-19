@@ -1,0 +1,22 @@
+@(message: String)
+
+@main(message) {
+
+	<table>
+		<tr>
+			<td width="70%">
+				<p>Working in progress</p>
+			</td>
+			<td width="30%">
+				@helper.form(action = routes.ReadCSVFileController.insert, 'enctype -> "multipart/form-data") {
+					<input type="file" name="csv">
+					<div>
+						<input type="submit" class="btn">
+					</div>
+    			}
+			</td>
+		</tr>
+	</table>
+	
+	<a href="/">Main Menu</a>
+}

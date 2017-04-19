@@ -45,4 +45,8 @@ class Application @Inject() extends Controller {
     }
   }
   
+  def readcsvfile = Action {
+    Ok(views.html.readcsvfile("scala-csv - Read CSV File"))
+  }
+  
 }
