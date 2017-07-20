@@ -31,7 +31,32 @@ routesGenerator := InjectedRoutesGenerator
 </pre></div>
 
 Modify application.conf
+<div class="highlight highlight-scala"><pre>
+# ****************************************** #
+# *** ReactiveMongo Plugin configuration *** #
+# ****************************************** #
+play.modules.enabled += "play.modules.reactivemongo.ReactiveMongoModule"
+<br>
+&#35; Simple configuration (by URI)
+&#35; mongodb.uri = "mongodb://localhost:27017/play-reactivemongo-gridfs"
 
+
+&#35; URI + Authentication
+&#35; mongodb.uri = "mongodb://jack:jack@localhost:27017/toto"
+
+&#35; Legacy configuration (prefer URI)
+&#35; mongodb.servers = ["localhost:27017"]
+&#35; mongodb.db = "databasename"
+
+&#35; If you want to turn on logging for ReactiveMongo, uncomment and customize this line
+&#35; logger.reactivemongo=DEBUG
+logger.reactivemongo=INFO
+
+&#35; ****************************************** &#35;
+&#35; ***        Custom Configuration        *** &#35;
+&#35; ****************************************** &#35;
+play.http.parser.maxDiskBuffer = 1024k
+</pre></div>
 
 Notes:
 =======================
