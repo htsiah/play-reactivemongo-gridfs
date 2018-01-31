@@ -1,0 +1,16 @@
+Play from 2.4.4 to 2.4.11
+Reactivemongo from 0.11.0 to 0.11.14
+Scala Version from 2.11.6 to 2.11.8
+
+Remove ImplicitBSONHandlers._
+Replace import play.modules.reactivemongo.json._ to import reactivemongo.play.json._
+Replace play.modules.reactivemongo.json.JSONSerializationPack.type to reactivemongo.play.json.JSONSerializationPack.type
+Replace import play.modules.reactivemongo.json.collection._ to import reactivemongo.play.json.collection._
+
+[warn]   private val db = connection.get.db(dbname)
+[warn]                                   ^
+[warn] one warning found
+[warn] - application - Logger configuration in conf files is deprecated and has
+no effect. Use a logback configuration file instead.
+
+Change to private val db = Await.result(connection.get.database(dbname), Duration(5000, "millis")) 

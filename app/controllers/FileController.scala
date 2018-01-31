@@ -10,10 +10,10 @@ import play.modules.reactivemongo.{
   MongoController, ReactiveMongoApi, ReactiveMongoComponents
 }
 import play.api.libs.json.{ Json, JsObject, JsString }
-import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
+import reactivemongo.play.json._
 import reactivemongo.api.gridfs.ReadFile
 import reactivemongo.bson._
 

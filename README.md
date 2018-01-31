@@ -4,8 +4,9 @@ This is a Play24 GridFS Example using reactiveMongo driver. It demonstrates how 
 
 This example use the following:
 <ul>
-<li>Play Framework 2.4.4</li>
-<li>Reactive Scala Driver for MongoDB 11.0</li>
+<li>Play Framework 2.4.11</li>
+<li>Reactive Scala Driver for MongoDB 11.14</li>
+<li>Scala 2.11.8</li>
 </ul>
 
 Setup Instruction
@@ -19,9 +20,9 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.8"
 
-libraryDependencies += "org.reactivemongo" %% "play2-reactivemongo" % "0.11.0.play24"
+libraryDependencies += "org.reactivemongo" %% "play2-reactivemongo" % "0.11.14-play24",
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 

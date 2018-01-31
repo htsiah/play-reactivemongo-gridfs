@@ -1,11 +1,13 @@
 package models
 
 import scala.util.Try
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.Logger
-import play.modules.reactivemongo.json._
 
+import reactivemongo.play.json._
 import reactivemongo.api._
 import reactivemongo.api.gridfs.GridFS
 
@@ -17,7 +19,7 @@ object FileModel {
   private val connection: Try[MongoConnection] = MongoConnection.parseURI(uri).map { 
     parsedUri => driver.connection(parsedUri)
   }
-  private val db = connection.get.db(dbname)
+  private val db = Await.result(connection.get.database(dbname), Duration(5000, "millis")) 
   val gridFS = this.getGridFS
 
   // let's build an index on our gridfs chunks collection if none
@@ -27,7 +29,7 @@ object FileModel {
   }
   
   private def getGridFS = {
-    import play.modules.reactivemongo.json.collection._
+    import reactivemongo.play.json.collection._
     GridFS[JSONSerializationPack.type](db)
   }
 

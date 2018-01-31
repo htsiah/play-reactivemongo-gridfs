@@ -4,10 +4,10 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-	"org.reactivemongo" %% "play2-reactivemongo" % "0.11.0.play24",
+	"org.reactivemongo" %% "play2-reactivemongo" % "0.11.14-play24",
 	"com.github.tototoshi" %% "scala-csv" % "1.3.4"
 )
 
