@@ -14,6 +14,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import reactivemongo.play.json._
 import reactivemongo.api.gridfs.ReadFile
+import reactivemongo.api.Cursor
 import reactivemongo.bson._
 
 class Application @Inject() extends Controller {
